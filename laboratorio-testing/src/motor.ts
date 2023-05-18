@@ -5,7 +5,7 @@ export const randomNumber = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
 // Número mayor que 7
-export const cardNumber = (number: number) => {
+export const cardNumber = (number: number): number => {
   return number > puntosPartida.SIETE_COPAS ? number + 2 : number;
 };
 
@@ -111,11 +111,13 @@ export const cardValue = (newNumber: number): number => {
 };
 
 // Cambio el estado del objeto partida
-export const setState = (newState: States) => (partida.state = newState);
+export const setState = (newState: States): States =>
+  (partida.state = newState);
 
 // Cambio el mensaje del objeto partida
-export const setMessage = (newMessage: string) =>
+export const setMessage = (newMessage: string): string =>
   (partida.message = newMessage);
 
 // Cambio el scorVlue del objeto partida
-export const setScore = (newScore: number) => (partida.scoreValue = newScore);
+export const setScore = (newScore: number): number =>
+  (partida.scoreValue = newScore);
