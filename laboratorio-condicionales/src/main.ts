@@ -87,18 +87,17 @@ const urlCard = (num: number): string => {
 };
 
 // Valor de la carta para la puntuación
-const cardValue = (newNumber: number): number => {
-  return newNumber > puntosPartida.SIETE_COPAS ? 0.5 : newNumber;
-};
+const cardValue = (newNumber: number): number =>
+  newNumber > puntosPartida.SIETE_COPAS ? 0.5 : newNumber;
 
 // Cambio el estado del objeto partida
-const setState = (newState: States) => (state = newState);
+const setState = (newState: States): States => (state = newState);
 
 // Cambio el mensaje del objeto partida
-const setMessage = (newMessage: string) => (message = newMessage);
+const setMessage = (newMessage: string): string => (message = newMessage);
 
 // Cambio el scorVlue del objeto partida
-const setScore = (newScore: number) => (scoreValue = newScore);
+const setScore = (newScore: number): number => (scoreValue = newScore);
 
 //Actualizo la url de la img de la transición
 const urlTransitionCard = (img: string): void => {
