@@ -106,10 +106,8 @@ export const generateMessage = (state: States): string => {
 };
 
 // Valor de la carta para la puntuación
-export const cardValue = (newNumber: number): number => {
-  return newNumber > puntosPartida.SIETE_COPAS ? 0.5 : newNumber;
-};
-
+export const cardValue = (newNumber: number): number =>
+  newNumber > puntosPartida.SIETE_COPAS ? 0.5 : newNumber;
 // Cambio el estado del objeto partida
 export const setState = (newState: States): States =>
   (partida.state = newState);
