@@ -2,7 +2,7 @@ import { getState, cardNumber, cardValue } from './motor';
 import { States } from './modelo';
 
 describe('getState', () => {
-  it('El jugador llega a 7.5 y gana la partida', () => {
+  it('Debería devolver SEVEN_AND_A_HALF si los puntos son 7.5', () => {
     //Arrange
     const score: number = 7.5;
     const expected: States = 'SEVEN_AND_A_HALF';
@@ -12,7 +12,7 @@ describe('getState', () => {
     expect(result).toBe(expected);
   });
 
-  it('El jugador se pasa de 7.5 y pierde la partida', () => {
+  it('Debería devolver GAME_OVER si los puntos son 8', () => {
     //Arrange
     const score: number = 8;
     const expected: States = 'GAME_OVER';
@@ -22,7 +22,7 @@ describe('getState', () => {
     expect(result).toBe(expected);
   });
 
-  it('El jugador se planta con un numero menor que 4', () => {
+  it('Debería devolver LESS_THAN_FOUR si los puntos son 3.5', () => {
     //Arrange
     const score: number = 3.5;
     const expected: States = 'LESS_THAN_FOUR';
@@ -32,7 +32,7 @@ describe('getState', () => {
     expect(result).toBe(expected);
   });
 
-  it('El jugador se planta con un numero entre 4 y 6', () => {
+  it('Debería devolver BETWEEN_FOUR_AND_SIX si los puntos son 5', () => {
     //Arrange
     const score: number = 5;
     const expected: States = 'BETWEEN_FOUR_AND_SIX';
@@ -42,7 +42,7 @@ describe('getState', () => {
     expect(result).toBe(expected);
   });
 
-  it('El jugador se planta con un numero entre 6 y 7', () => {
+  it('Debería devolver BETWEEN_SIX_AND_SEVEN si los puntos son 6.5', () => {
     //Arrange
     const score: number = 6.5;
     const expected: States = 'BETWEEN_SIX_AND_SEVEN';
@@ -56,27 +56,29 @@ describe('getState', () => {
 });
 
 describe('cardNumber', () => {
-  it('El número es mayor que siete y se le suma 2', () => {
+  it('Debería devolver 10 si el número es 8', () => {
     //Arrange
     const number = 8;
-    const esperado = number + 2;
+    const esperado = 10;
     //Act
     const result = cardNumber(number);
     //Assert
     expect(result).toBe(esperado);
   });
-  it('El número es manor o igual que siete y no se le suma nada', () => {
+
+  it('Debería devolver 6 si el número es 6', () => {
     //Arrange
     const number = 6;
-    const esperado = number;
+    const esperado = 6;
     //Act
     const result = cardNumber(number);
     //Assert
     expect(result).toBe(esperado);
   });
 });
+
 describe('cardValue', () => {
-  it('El valor de la carta al ser mayor de 7, es 0.5', () => {
+  it('Debería devolver 0.5 si el número es 10', () => {
     //Arrange
     const number = 10;
     const esperado = 0.5;
@@ -85,10 +87,11 @@ describe('cardValue', () => {
     //Assert
     expect(result).toBe(esperado);
   });
-  it('El valor de la carta al ser manor de 7, su numero es su valor', () => {
+
+  it('Debería devolver 7 si el número es 7', () => {
     //Arrange
     const number = 7;
-    const esperado = number;
+    const esperado = 7;
     //Act
     const result = cardValue(number);
     //Assert

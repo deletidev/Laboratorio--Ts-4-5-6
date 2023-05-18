@@ -1,10 +1,14 @@
 import { partida, puntosPartida } from './modelo';
 import {
   randomNumber,
-  newUrlImgCard,
+  cardNumber,
+  urlCard,
   getState,
   generateMessage,
-  sumCoins
+  cardValue,
+  setState,
+  setScore,
+  setMessage
 } from './motor';
 
 //apagar boton
@@ -78,6 +82,7 @@ const showMessage = (): void => {
   }
 };
 
+//Botones tras comprobar la mano
 const checkHandBtns = () => {
   btnShow('new-game');
   btnHiden('add-card');
@@ -90,8 +95,8 @@ const checkHand = (num: number): void => {
     num === puntosPartida.MAX_TOTAL_SCORE ||
     num > puntosPartida.MAX_TOTAL_SCORE
   ) {
-    partida.state = getState(partida.scoreValue);
-    partida.message = generateMessage(partida.state);
+    setState(getState(partida.scoreValue));
+    setMessage(generateMessage(partida.state));
     solutionMessage(partida.message);
     showMessage();
     checkHandBtns();
@@ -136,6 +141,7 @@ const showTableCard = (): void => {
   }
 };
 
+// botones al terminar la transición
 const transitionEndBtns = () => {
   btnEnabled('add-card');
   btnEnabled('new-game');
@@ -190,10 +196,10 @@ const transitionBtns = () => {
 //Dar carta
 export const giveMeCard = (): void => {
   // creo numero random;
-  let newNumber: number = randomNumber(1, 10);
+  let newNumber: number = cardNumber(randomNumber(1, 10));
 
   //recibo mi URL de la img de la carta
-  let img = newUrlImgCard(newNumber);
+  let img = urlCard(newNumber);
 
   //Veo la carta
   urlTransitionCard(img);
@@ -201,11 +207,14 @@ export const giveMeCard = (): void => {
   //Hago la transición
   transitionAdd();
 
-  //desabilito botones durante la transición
+  //deshabilito botones durante la transición
   transitionBtns();
 
+  //Le doy valor a la carta
+  const newValue = cardValue(newNumber);
+
   //Actualizo puntuación
-  sumCoins(newNumber);
+  setScore(partida.scoreValue + newValue);
 
   //mostrar puntos
   showScore(partida.scoreValue);
@@ -234,8 +243,8 @@ const stateBtns = () => {
 
 // Me planto
 export const stand = (): void => {
-  partida.state = getState(partida.scoreValue);
-  partida.message = generateMessage(partida.state);
+  setState(getState(partida.scoreValue));
+  setMessage(generateMessage(partida.state));
   solutionMessage(partida.message);
   showMessage();
   stateBtns();
@@ -243,11 +252,16 @@ export const stand = (): void => {
 
 //Nueva partida
 export const newGame = (): void => {
+  //Botones inicio partida
   newGameBtns();
 
-  partida.scoreValue = 0;
-  showScore(partida.scoreValue);
+  //reseteo objeto partida
+  setScore(0);
+  setState(getState(partida.scoreValue));
+  setMessage(generateMessage(partida.state));
 
+  //muestro nueva puntuación
+  showScore(partida.scoreValue);
   //Oculto el mensaje
   solutionHide();
 

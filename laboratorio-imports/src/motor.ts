@@ -4,8 +4,13 @@ import { States, partida, puntosPartida } from './modelo';
 export const randomNumber = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
+// numero mayor que 7
+export const cardNumber = (number: number) => {
+  return number > puntosPartida.SIETE_COPAS ? number + 2 : number;
+};
+
 //CartaUrl
-const urlCard = (num: number): string => {
+export const urlCard = (num: number): string => {
   let urlName: string = '';
   switch (num) {
     case 1:
@@ -44,11 +49,6 @@ const urlCard = (num: number): string => {
 
   let url: string = `https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/${urlName}`;
   return url;
-};
-
-//creo la url de la img
-export const newUrlImgCard = (num: number): string => {
-  return num > puntosPartida.SIETE_COPAS ? urlCard(num + 2) : urlCard(num);
 };
 
 //Devuelvo el stado del mensaje
@@ -105,9 +105,17 @@ export const generateMessage = (state: States): string => {
   return mensaje;
 };
 
-//actualizo puntuación
-export const sumCoins = (newNumber: number) => {
-  newNumber > puntosPartida.SIETE_COPAS
-    ? (partida.scoreValue = partida.scoreValue + 0.5)
-    : (partida.scoreValue = partida.scoreValue + newNumber);
+// Valor de la carta para la puntuación
+export const cardValue = (newNumber: number): number => {
+  return newNumber > puntosPartida.SIETE_COPAS ? 0.5 : newNumber;
 };
+
+// Cambio el estado del objeto partida
+export const setState = (newState: States) => (partida.state = newState);
+
+// Cambio el mensaje del objeto partida
+export const setMessage = (newMessage: string) =>
+  (partida.message = newMessage);
+
+// Cambio el scorVlue del objeto partida
+export const setScore = (newScore: number) => (partida.scoreValue = newScore);

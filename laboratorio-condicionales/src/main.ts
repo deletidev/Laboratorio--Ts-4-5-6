@@ -31,7 +31,12 @@ let message: string = '';
 const randomNumber = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
-//Contador
+// numero mayor que 7
+const cardNumber = (number: number) => {
+  return number > puntosPartida.SIETE_COPAS ? number + 2 : number;
+};
+
+//Mostrar valor del contador
 const showScore = (scoreNumber: number): void => {
   const score = document.getElementById('score');
   score && score instanceof HTMLElement
@@ -81,10 +86,19 @@ const urlCard = (num: number): string => {
   return url;
 };
 
-//creo la url de la img
-const newUrlImgCard = (num: number): string => {
-  return num > puntosPartida.SIETE_COPAS ? urlCard(num + 2) : urlCard(num);
+// Valor de la carta para la puntuación
+const cardValue = (newNumber: number): number => {
+  return newNumber > puntosPartida.SIETE_COPAS ? 0.5 : newNumber;
 };
+
+// Cambio el estado del objeto partida
+const setState = (newState: States) => (state = newState);
+
+// Cambio el mensaje del objeto partida
+const setMessage = (newMessage: string) => (message = newMessage);
+
+// Cambio el scorVlue del objeto partida
+const setScore = (newScore: number) => (scoreValue = newScore);
 
 //Actualizo la url de la img de la transición
 const urlTransitionCard = (img: string): void => {
@@ -216,8 +230,8 @@ const checkHand = (num: number): void => {
     num === puntosPartida.MAX_TOTAL_SCORE ||
     num > puntosPartida.MAX_TOTAL_SCORE
   ) {
-    state = getState(scoreValue);
-    message = generateMessage(state);
+    setState(getState(scoreValue));
+    setMessage(generateMessage(state));
     solutionMessage(message);
     showMessage();
     checkHandBtns();
@@ -283,7 +297,7 @@ const transitionEnd = (img: string): void => {
 };
 
 //Creo evento transitionEnd
-const transitionCardEvent = (img: string): void => {
+const transitionEvent = (img: string): void => {
   const transitionElement = document.getElementById('card-transition');
   transitionElement && transitionElement instanceof HTMLElement
     ? transitionElement.addEventListener('transitionend', () =>
@@ -308,13 +322,6 @@ const imgHide = (): void => {
     : console.error('No se ha encontrado el elemento con id card-prev');
 };
 
-//actualizo la puuntuación
-const sumCoins = (newNumber: number) => {
-  newNumber > puntosPartida.SIETE_COPAS
-    ? (scoreValue = scoreValue + 0.5)
-    : (scoreValue = scoreValue + newNumber);
-};
-
 const transitionBtns = () => {
   btnDisabled('add-card');
   btnDisabled('new-game');
@@ -323,10 +330,10 @@ const transitionBtns = () => {
 //Dar carta
 const giveMeCard = (): void => {
   // creo numero random;
-  let newNumber: number = randomNumber(1, 10);
+  let newNumber: number = cardNumber(randomNumber(1, 10));
 
   //recibo mi URL de la img de la carta
-  let img = newUrlImgCard(newNumber);
+  let img = urlCard(newNumber);
 
   //Veo la carta
   urlTransitionCard(img);
@@ -334,11 +341,14 @@ const giveMeCard = (): void => {
   //Hago la transición
   transitionAdd();
 
-  //desabilito botones durante la transición
+  //deshabilito botones durante la transición
   transitionBtns();
 
+  //Le doy valor a la carta
+  const newValue = cardValue(newNumber);
+
   //Actualizo puntuación
-  sumCoins(newNumber);
+  setScore(scoreValue + newValue);
 
   //mostrar puntos
   showScore(scoreValue);
@@ -347,7 +357,7 @@ const giveMeCard = (): void => {
   checkHand(scoreValue);
 
   //compruebo que termina la transición para poder interactuar
-  transitionCardEvent(img);
+  transitionEvent(img);
 };
 
 const newGameBtns = () => {
@@ -367,8 +377,8 @@ const stateBtns = () => {
 
 // Me planto
 const stand = (): void => {
-  state = getState(scoreValue);
-  message = generateMessage(state);
+  setState(getState(scoreValue));
+  setMessage(generateMessage(state));
   solutionMessage(message);
   showMessage();
   stateBtns();
@@ -376,11 +386,16 @@ const stand = (): void => {
 
 //Nueva partida
 const newGame = (): void => {
+  //Botones inicio partida
   newGameBtns();
 
-  scoreValue = 0;
-  showScore(scoreValue);
+  //reseteo objeto partida
+  setScore(0);
+  setState(getState(scoreValue));
+  setMessage(generateMessage(state));
 
+  //muestro nueva puntuación
+  showScore(scoreValue);
   //Oculto el mensaje
   solutionHide();
 
