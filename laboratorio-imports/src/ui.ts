@@ -2,7 +2,6 @@ import { partida, puntosPartida } from './modelo';
 import {
   randomNumber,
   cardNumber,
-  urlCard,
   getState,
   generateMessage,
   cardValue,
@@ -51,6 +50,48 @@ export const showScore = (scoreNumber: number): void => {
     : console.error('showScore: no ha encontrado el elemento con id score');
 };
 
+//CartaUrl
+export const urlCard = (num: number): string => {
+  let urlName: string = '';
+  switch (num) {
+    case 1:
+      urlName = '1_as-copas.jpg ';
+      break;
+    case 2:
+      urlName = '2_dos-copas.jpg ';
+      break;
+    case 3:
+      urlName = '3_tres-copas.jpg ';
+      break;
+    case 4:
+      urlName = '4_cuatro-copas.jpg ';
+      break;
+    case 5:
+      urlName = '5_cinco-copas.jpg ';
+      break;
+    case 6:
+      urlName = '6_seis-copas.jpg ';
+      break;
+    case 7:
+      urlName = '7_siete-copas.jpg ';
+      break;
+    case 10:
+      urlName = '10_sota-copas.jpg ';
+      break;
+    case 11:
+      urlName = '11_caballo-copas.jpg ';
+      break;
+    case 12:
+      urlName = '12_rey-copas.jpg ';
+      break;
+    default:
+      break;
+  }
+
+  let url: string = `https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/${urlName}`;
+  return url;
+};
+
 //Actualizo la url de la img de la transicion
 const urlTransitionCard = (img: string): void => {
   const imgCard = document.getElementById('card-new');
@@ -75,11 +116,9 @@ const solutionMessage = (menssage: string): void => {
 const showMessage = (): void => {
   const solution = document.getElementById('solution');
 
-  if (solution && solution instanceof HTMLElement) {
-    solution.classList.add('display__solution--show');
-  } else {
-    console.error('showMessage: no encuentra el elemento con id solution');
-  }
+  solution && solution instanceof HTMLElement
+    ? solution.classList.add('display__solution--show')
+    : console.error('showMessage: no encuentra el elemento con id solution');
 };
 
 //Botones tras comprobar la mano
@@ -123,22 +162,18 @@ const transitionReset = (): void => {
 const urlTableCard = (img: string): void => {
   const imgCardRes = document.getElementById('card-prev');
 
-  if (imgCardRes && imgCardRes instanceof HTMLImageElement) {
-    imgCardRes.src = img;
-  } else {
-    console.error('No se encuentra el elemento con id card-new o card-prev');
-  }
+  imgCardRes && imgCardRes instanceof HTMLImageElement
+    ? (imgCardRes.src = img)
+    : console.error('No se encuentra el elemento con id card-new o card-prev');
 };
 
 //mostrar carta de abajo
 const showTableCard = (): void => {
   const imgCardRes = document.getElementById('card-prev');
 
-  if (imgCardRes && imgCardRes instanceof HTMLImageElement) {
-    imgCardRes.classList.remove('card--opacity');
-  } else {
-    console.error('No se encuentra el elemento con id card-new o card-prev');
-  }
+  imgCardRes && imgCardRes instanceof HTMLImageElement
+    ? imgCardRes.classList.remove('card--opacity')
+    : console.error('No se encuentra el elemento con id card-new o card-prev');
 };
 
 // botones al terminar la transición

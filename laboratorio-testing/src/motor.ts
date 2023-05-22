@@ -9,48 +9,6 @@ export const cardNumber = (number: number): number => {
   return number > puntosPartida.SIETE_COPAS ? number + 2 : number;
 };
 
-//CartaUrl
-export const urlCard = (num: number): string => {
-  let urlName: string = '';
-  switch (num) {
-    case 1:
-      urlName = '1_as-copas.jpg ';
-      break;
-    case 2:
-      urlName = '2_dos-copas.jpg ';
-      break;
-    case 3:
-      urlName = '3_tres-copas.jpg ';
-      break;
-    case 4:
-      urlName = '4_cuatro-copas.jpg ';
-      break;
-    case 5:
-      urlName = '5_cinco-copas.jpg ';
-      break;
-    case 6:
-      urlName = '6_seis-copas.jpg ';
-      break;
-    case 7:
-      urlName = '7_siete-copas.jpg ';
-      break;
-    case 10:
-      urlName = '10_sota-copas.jpg ';
-      break;
-    case 11:
-      urlName = '11_caballo-copas.jpg ';
-      break;
-    case 12:
-      urlName = '12_rey-copas.jpg ';
-      break;
-    default:
-      break;
-  }
-
-  let url: string = `https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/${urlName}`;
-  return url;
-};
-
 //Devuelvo el stado del mensaje
 export const getState = (numero: number): States => {
   if (numero < puntosPartida.MIN_SCORE) {

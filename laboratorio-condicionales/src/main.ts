@@ -177,11 +177,9 @@ const solutionMessage = (menssage: string): void => {
 const showMessage = (): void => {
   const solution = document.getElementById('solution');
 
-  if (solution && solution instanceof HTMLElement) {
-    solution.classList.add('display__solution--show');
-  } else {
-    console.error('showMessage: no encuentra el elemento con id solution');
-  }
+  solution && solution instanceof HTMLElement
+    ? solution.classList.add('display__solution--show')
+    : console.error('showMessage: no encuentra el elemento con id solution');
 };
 
 //apagar boton
@@ -257,22 +255,18 @@ const transitionReset = (): void => {
 const urlTableCard = (img: string): void => {
   const imgCardRes = document.getElementById('card-prev');
 
-  if (imgCardRes && imgCardRes instanceof HTMLImageElement) {
-    imgCardRes.src = img;
-  } else {
-    console.error('No se encuentra el elemento con id card-new o card-prev');
-  }
+  imgCardRes && imgCardRes instanceof HTMLImageElement
+    ? (imgCardRes.src = img)
+    : console.error('No se encuentra el elemento con id card-new o card-prev');
 };
 
 //mostrar carta de abajo
 const showTableCard = (): void => {
   const imgCardRes = document.getElementById('card-prev');
 
-  if (imgCardRes && imgCardRes instanceof HTMLImageElement) {
-    imgCardRes.classList.remove('card--opacity');
-  } else {
-    console.error('No se encuentra el elemento con id card-new o card-prev');
-  }
+  imgCardRes && imgCardRes instanceof HTMLImageElement
+    ? imgCardRes.classList.remove('card--opacity')
+    : console.error('No se encuentra el elemento con id card-new o card-prev');
 };
 
 const transitionEndBtns = () => {
@@ -437,7 +431,7 @@ const initBtns = () => {
   }
 };
 
-export const initGame = () => {
+const initGame = () => {
   //Pongo el 0
   showScore(scoreValue);
 
