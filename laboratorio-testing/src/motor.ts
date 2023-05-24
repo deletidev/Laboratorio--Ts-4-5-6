@@ -1,4 +1,4 @@
-import { States, puntosPartida, partida } from './modelo';
+import { States, puntosPartida } from './modelo';
 
 //Número aleatorio
 export const randomNumber = (min: number, max: number): number =>
@@ -66,15 +66,3 @@ export const generateMessage = (state: States): string => {
 // Valor de la carta para la puntuación
 export const cardValue = (newNumber: number): number =>
   newNumber > puntosPartida.SIETE_COPAS ? 0.5 : newNumber;
-
-// Cambio el estado del objeto partida
-export const setState = (newState: States): States =>
-  (partida.state = newState);
-
-// Cambio el mensaje del objeto partida
-export const setMessage = (newMessage: string): string =>
-  (partida.message = newMessage);
-
-// Cambio el scorVlue del objeto partida
-export const setScore = (newScore: number): number =>
-  (partida.scoreValue = newScore);

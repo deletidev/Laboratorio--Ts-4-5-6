@@ -1,13 +1,17 @@
-import { partida, puntosPartida } from './modelo';
+import {
+  partida,
+  puntosPartida,
+  setState,
+  setScore,
+  setMessage
+} from './modelo';
+
 import {
   randomNumber,
   cardNumber,
   getState,
   generateMessage,
-  cardValue,
-  setState,
-  setScore,
-  setMessage
+  cardValue
 } from './motor';
 
 //apagar boton
