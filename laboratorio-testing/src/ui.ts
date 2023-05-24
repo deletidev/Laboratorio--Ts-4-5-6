@@ -51,7 +51,7 @@ export const showScore = (scoreNumber: number): void => {
 };
 
 //CartaUrl
-export const urlCard = (num: number): string => {
+const urlCard = (num: number): string => {
   let urlName: string = '';
   switch (num) {
     case 1:
@@ -105,11 +105,9 @@ const urlTransitionCard = (img: string): void => {
 const solutionMessage = (menssage: string): void => {
   const solution = document.getElementById('solution');
 
-  if (solution && solution instanceof HTMLElement) {
-    solution.innerHTML = menssage;
-  } else {
-    console.error('showMessage: no encuentra el elemento con id solution');
-  }
+  solution && solution instanceof HTMLElement
+    ? (solution.innerHTML = menssage)
+    : console.error('showMessage: no encuentra el elemento con id solution');
 };
 
 // muestraMensajeDeComprobacion

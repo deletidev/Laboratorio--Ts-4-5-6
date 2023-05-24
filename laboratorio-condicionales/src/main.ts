@@ -166,11 +166,9 @@ const generateMessage = (state: States): string => {
 const solutionMessage = (menssage: string): void => {
   const solution = document.getElementById('solution');
 
-  if (solution && solution instanceof HTMLElement) {
-    solution.innerHTML = menssage;
-  } else {
-    console.error('showMessage: no encuentra el elemento con id solution');
-  }
+  solution && solution instanceof HTMLElement
+    ? (solution.innerHTML = menssage)
+    : console.error('showMessage: no encuentra el elemento con id solution');
 };
 
 // muestraMensajeDeComprobacion
