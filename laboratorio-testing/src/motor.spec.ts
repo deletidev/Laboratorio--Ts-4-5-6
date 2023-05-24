@@ -66,10 +66,30 @@ describe('cardNumber', () => {
     expect(result).toBe(esperado);
   });
 
+  it('Debería devolver 12 si el número es 10', () => {
+    //Arrange
+    const number = 10;
+    const esperado = 12;
+    //Act
+    const result = cardNumber(number);
+    //Assert
+    expect(result).toBe(esperado);
+  });
+
   it('Debería devolver 6 si el número es 6', () => {
     //Arrange
     const number = 6;
     const esperado = 6;
+    //Act
+    const result = cardNumber(number);
+    //Assert
+    expect(result).toBe(esperado);
+  });
+
+  it('Debería devolver 1 si el número es 1', () => {
+    //Arrange
+    const number = 1;
+    const esperado = 1;
     //Act
     const result = cardNumber(number);
     //Assert
@@ -102,16 +122,6 @@ describe('cardValue', () => {
     //Arrange
     const number = 7;
     const esperado = 7;
-    //Act
-    const result = cardValue(number);
-    //Assert
-    expect(result).toBe(esperado);
-  });
-
-  it('Debería devolver 4 si el número es 4', () => {
-    //Arrange
-    const number = 4;
-    const esperado = 4;
     //Act
     const result = cardValue(number);
     //Assert
